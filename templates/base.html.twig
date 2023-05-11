@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Sortir.com{% endblock %}</title>
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/sortie.css') }}">
+        {% endblock %}
+
+    </head>
+    <header>
+        <div class="logo">
+            <a href="{{ path('sortie_home') }}"><img src="{{ asset('img/Sortir_logo.png') }}" alt="Sortir.com"></a>
+        </div>
+        <nav>
+            {% if app.user.administrateur == true %}
+
+                <a href="{{ path('campus_index') }}" title="login">Campus</a>
+                <a href="{{ path('campus_uploadCsv') }}" title="uploadCsv">Upload</a>
+
+            {% endif %}
+
+            <a href="{{ path('sortie_home') }}" title="Accueil">Accueil</a>
+            <a href="{{ path('profile_update') }}" title="Mon profil">Mon profil</a>
+            <a href="{{ path('ville_index') }}" title="Villes">Villes de nos sorties</a>
+            <a href="{{ path('lieu_index') }}" title="Lieux">Lieux de nos sorties</a>
+            <a href="{{ path('app_logout') }}" title="Logout">Se deconnecter</a>
+        </nav>
+    </header>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    <body>
+
+{#    affichage du statut connecté et lien de déconnexion
+    {% if app.user %}
+        <div class="mb-3">
+            Vous êtes connecté(e) comme {{ app.user.nom }}, <a href="{{ path('app_logout') }}">Me déconnecter</a>
+        </div>
+    {% endif %}#}
+
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>
